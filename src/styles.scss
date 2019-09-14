@@ -31,7 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 }
 .flex-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 .fourcastsCard,.favorite-card{
     margin: 4px;
@@ -65,9 +65,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       margin: 1rem auto;
       min-width: 200px;
     }
-img.weatherIcon{
-  vertical-align: middle;
-}
+    img.weatherIcon{
+      vertical-align: middle;
+    }
 
   }
 

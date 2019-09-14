@@ -9,7 +9,7 @@ export class CrudService {
   currentConditions: any = null;
   searchText: string = '';
   apiKey = "BX5B2IpMXvd87AQCjBinaCW2PXLxfzdW"
-  baseUrl = "http://dataservice.accuweather.com"
+  baseUrl = "https://dataservice.accuweather.com"
   tempUnit;
   constructor(private http: HttpClient) { }
 
