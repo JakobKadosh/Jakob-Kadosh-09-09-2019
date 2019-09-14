@@ -1,0 +1,9 @@
+<div class="container">
+    <mat-divider></mat-divider>
+    <div class="favoritesCardsContainer">
+        <mat-card *ngFor="let cityCondition of favoriteCitiesConditions" class="favorite-card" > 
+            <mat-card-title>{{cityCondition.city.LocalizedName}}, {{cityCondition.city.Country.LocalizedName}} </mat-card-title>
+            <mat-card-actions><button mat-raised-button (click)="showCurrentConditions(cityCondition.city.Key)">Open</button> </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

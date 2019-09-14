@@ -1,0 +1,55 @@
+<div class="container">
+    <span class="flex-spacer"></span>
+    <mat-slide-toggle [(ngModel)]="isMetric" (click)="changeTempSystem()" color="primary">Metric</mat-slide-toggle>
+    <mat-form-field class="autocomplete-wrapper">
+        <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="city"
+            [formControl]="searchCitiesCtrl">
+        <mat-autocomplete autoActiveFirstOption #city="matAutocomplete" [displayWith]="displayFn"
+            (optionSelected)="onHumanSelected($event.option)">
+            <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+            <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let city of filteredCities" [value]="city">
+
+                    <span><b>{{city.LocalizedName}} , {{city.Country.LocalizedName}}</b></span>
+                </mat-option>
+            </ng-container>
+        </mat-autocomplete>
+    </mat-form-field>
+
+
+    <ng-container *ngIf="errorMsg; else elseTemplate">
+        {{errorMsg}}
+    </ng-container>
+
+
+    <mat-card *ngIf="currentConditions" class="current-conditions-card">
+
+        <img mat-card-image src="../../assets/pics/desktop.jpg">
+        <mat-card-title>{{currentCity.LocalizedName}}, {{currentCity.Country.LocalizedName}} </mat-card-title>
+        <mat-card-subtitle> {{currentConditions.WeatherText}} </mat-card-subtitle>
+        <mat-card-subtitle> {{currentConditions.LocalObservationDateTime|date:'E, HH:mm'}} </mat-card-subtitle>
+        <h2><img src="/assets/icons/{{currentConditions.WeatherIcon}}-s.png" class="weatherIcon">
+            {{currentConditions|temperature :isMetric}}&#176;<sup
+                class="unit">{{currentConditions|tempUnit :isMetric}}</sup></h2>
+        <mat-card-content></mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="addToFavorites(currentCity)">Add to favorites</button><br>
+        </mat-card-actions>
+
+    </mat-card>
+
+    <mat-divider></mat-divider>
+    <div class="fourcastsContainer">
+        <mat-card *ngFor="let day of fiveDayForcasts.DailyForecasts" class="fourcastsCard">
+            <mat-card-title>{{getDay(day.Date) | date:'EEEE'}}</mat-card-title>
+
+            <h4><img src="/assets/icons/{{currentConditions.WeatherIcon}}-s.png"
+                    class="weatherIcon">{{day.Temperature.Maximum|forcasts :isMetric}}&#176;{{currentConditions|tempUnit :isMetric}}
+                -
+                {{day.Temperature.Minimum|forcasts :isMetric}}&#176;{{currentConditions|tempUnit :isMetric}}
+            </h4>
+            <mat-card-content>Day: {{day.Day.IconPhrase}}</mat-card-content>
+            <mat-card-content>Night: {{day.Night.IconPhrase}}</mat-card-content>
+        </mat-card>
+    </div>
+</div>
